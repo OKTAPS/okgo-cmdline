@@ -70,7 +70,7 @@ func main() {
 		fmt.Println("executing command")
 
 		resetUserFactorsAll(&execConf, threads, okClient)
-	}else if *command == "getUserNames" {
+	} else if *command == "getUserNames" {
 
 		fmt.Println("executing command")
 
@@ -82,9 +82,8 @@ func main() {
 		}
 
 		execConf.UserStatus = flag.Args()[0]
-////TO DO
+		////TO DO
 		// if execConfig.UserStatus = (ACTIVATE || REACTIVATE || DEACTIVATE || DELETE || RESET_PASSWORD)  {
-		
 
 		// }
 
@@ -137,13 +136,25 @@ func main() {
 
 		createUserAll(&execConf, threads, okClient)
 
-	}else if *command == "deleteUser" {
+	} else if *command == "createUsersWithHook" {
+
+		if len(flag.Args()) == 0 {
+			log.Fatal("missing target Status, Please pass any of following status ACTIVE, STAGED")
+		}
+
+		execConf.UserStatus = flag.Args()[0]
+
+		fmt.Println("executing command")
+
+		createUserAll(&execConf, threads, okClient)
+
+	} else if *command == "deleteUser" {
 
 		fmt.Println("executing command")
 
 		deleteUserAll(&execConf, threads, okClient)
 
-	}else if *command == "createTestUsers" {
+	} else if *command == "createTestUsers" {
 
 		if len(flag.Args()) == 0 {
 			log.Fatal("missing user count, please specify number of users to create")
@@ -151,12 +162,11 @@ func main() {
 
 		execConf.UserStatus = flag.Args()[0]
 
-
 		fmt.Println("executing command")
 
 		createTestUsers(&execConf, threads, okClient)
 
-	}else if *command == "listUsers" {
+	} else if *command == "listUsers" {
 		if len(flag.Args()) == 0 {
 			log.Fatal("missing Status, Please pass any of following status STAGED, PROVISIONED, ACTIVE, RECOVERY, PASSWORD_EXPIRED, LOCKED_OUT, DEPROVISIONED, SUSPENDED")
 		}
@@ -180,7 +190,7 @@ func main() {
 
 	} else if *command == "help" {
 
-		fmt.Println("Commands: \n \t -command=getUserId \n \t -command=resetFactors \n \t -command=listUsers <<STATUS>> \n\t -command=enrollFactors <<STATUS>> \n\t -command=createUserWithHash <<TARGET_STATUS>> \n\t -command=createUser <<TARGET_STATUS>> \n\t -command=createTestUsers <<USER_COUNT>> \n\t -command=deleteUser \n\t -command=getUserStatus <<FILTER_STATUS>> \n \t -command=changetUserStatus <<TARGET_LIFECYCLE_STATUS>> <<Additional Query Params>> \n \t -command=getUserNames \n \t -command=addUsersToGroup <<GROUP_ID> \n\n Threads: \n \t -threads=10")
+		fmt.Println("Commands: \n \t -command=getUserId \n \t -command=resetFactors \n \t -command=listUsers <<STATUS>> \n\t -command=enrollFactors <<STATUS>> \n\t -command=createUserWithHash <<TARGET_STATUS>> \n\t -command=createUser <<TARGET_STATUS>> \n\t -command=createUsersWithHook \n\t -command=createTestUsers <<USER_COUNT>> \n\t -command=deleteUser \n\t -command=getUserStatus <<FILTER_STATUS>> \n \t -command=changetUserStatus <<TARGET_LIFECYCLE_STATUS>> <<Additional Query Params>> \n \t -command=getUserNames \n \t -command=addUsersToGroup <<GROUP_ID> \n\n Threads: \n \t -threads=10")
 
 	} else {
 		log.Fatal("Invalid command -- please run help for the list of commands")
