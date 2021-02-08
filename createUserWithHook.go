@@ -63,7 +63,7 @@ func createUserWithHookAll(execConfig *ExecutorConfig, threads *int, okClient *O
 			go func(record []string, m int) {
 				defer wg.Done()
 				ch <- record
-				createUser(record, okClient, execConfig, &firstRow)
+				createUserWithHook(record, okClient, execConfig, &firstRow)
 				time.Sleep(25 * time.Millisecond)
 				<-(ch)
 			}(record, i)
@@ -94,9 +94,14 @@ func createUserWithHook(User []string, okClient *OktaClient, execConfig *Executo
 
 	u := &okta.CreateUserRequest{
 		Profile: &profile,
+		Credentials: &okta.UserCredentials{
+			Password: &okta.PasswordCredential{
+				Hook: &okta.PasswordCredentialHook{
+					Type: "default",
+				},
+			},
+		},
 	}
-
-	u.Credentials.Password.Hook.Type = "default"
 
 	var stat bool
 	if execConfig.UserStatus == "ACTIVE" {
@@ -117,7 +122,7 @@ func createUserWithHook(User []string, okClient *OktaClient, execConfig *Executo
 			}
 		}
 
-		fmt.Println(profile["login"], ",", "Error Creating User")
+		fmt.Println(profile["login"], ",", "Error Creating User", resp.StatusCode)
 
 		return false
 
