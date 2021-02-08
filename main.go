@@ -146,7 +146,7 @@ func main() {
 
 		fmt.Println("executing command")
 
-		createUserAll(&execConf, threads, okClient)
+		createUserWithHookAll(&execConf, threads, okClient)
 
 	} else if *command == "deleteUser" {
 
