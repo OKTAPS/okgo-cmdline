@@ -56,3 +56,13 @@ Commands:
 ./okgo -command=createUsersWithHook -threads=3
 ```
 
+### Creating Users with Active/STAGED status with multiple threads
+
+```
+./okgo -command=createUser -threads=3 STAGED
+
+./okgo -command=createUser -threads=3 ACTIVE
+```
+
+
+
