@@ -43,6 +43,13 @@ Commands:
  Threads: 
          -threads=10
 ```
+
+##### Threads flag is optional and is defaulted to 1.
+
+### Sample csv format for CreateUser/CreateUsersWithHook
+
+firstName,lastName,email,login,<<attribute_variable_name>>
+john,doe,john.doe@oktaice.com,john.doe@oktaice.com,<<attribute_value>>
              
 ### Create Users with PasswordHook
 
@@ -63,6 +70,23 @@ Commands:
 
 ./okgo -command=createUser -threads=3 ACTIVE
 ```
+
+### Sample csv format for enrollFactors (enrollFactors only supports sms,voice or email factors)
+```
+login,email,sms,voice
+john.doe@oktaice.com,john.doe@oktaice.com,1234567890,1234567890
+```
+### Enroll in Users Factors 
+```
+./okgo -command=enrollFactors -threads=5 ACTIVE
+```
+
+### Reset Users Factors
+
+```
+./okgo -command=resetFactors -threads=3
+```
+
 
 
 
