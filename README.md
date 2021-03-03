@@ -41,7 +41,7 @@ Commands:
          -command=addUsersToGroup <<GROUP_ID> 
 
  Threads: 
-         -threads=10
+         -threads=<<number_of_threads>> (default set to 1)
 ```
 
 ##### Threads flag is optional and is defaulted to 1.
