@@ -45,7 +45,14 @@ Commands:
 ```
              
 ### Create Users with PasswordHook
+
 ```
 ./okgo -command=createUsersWithHook
+```
+
+### Spinning Multiple threads
+
+```
+./okgo -command=createUsersWithHook -threads=3
 ```
 
